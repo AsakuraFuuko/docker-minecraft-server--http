@@ -72,6 +72,8 @@ COPY start.sh /start
 COPY start-minecraft.sh /start-minecraft
 COPY mcadmin.jq /usr/share
 RUN chmod +x /usr/local/bin/*
+RUN chmod +x /start-minecraft
+RUN chmod +x /start
 
 VOLUME ["/data","/mods","/config","/plugins","/home/minecraft"]
 COPY server.properties /tmp/server.properties
