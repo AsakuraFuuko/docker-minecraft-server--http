@@ -1,4 +1,4 @@
 #!/bin/sh
 /usr/sbin/sshd
-/start
+/start > /dev/stdout 2>&1
 chisel server --proxy http://localhost

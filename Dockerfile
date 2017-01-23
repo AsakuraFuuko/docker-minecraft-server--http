@@ -89,3 +89,5 @@ ENV UID=1000 GID=1000 \
 
 CMD ["/bin/sh", "-c", "/usr/local/bin/forward"]
 EXPOSE 8080
+
+RUN apt-get update && apt-get install -y curl
