@@ -24,6 +24,7 @@ RUN { \
 ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/jre
 
 RUN set -x \
+  && add-apt-repository ppa:openjdk-r/ppa \
 	&& apt-get update \
 	&& apt-get install -y \
 		openjdk-8-jre \
