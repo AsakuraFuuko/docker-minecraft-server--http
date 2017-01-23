@@ -32,24 +32,11 @@ RUN wget   -O chisel.tgz https://github.com/jpillora/chisel/releases/download/${
 RUN tar -xzvf chisel.tgz ${PATH_NAME}/chisel
 RUN mv ${PATH_NAME}/chisel /usr/local/bin
 
-# install nginx
-RUN apt-get update -q
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository -y ppa:nginx/stable
-RUN apt-get update -q
-RUN apt-get install -y nginx
-RUN chown -R www-data:www-data /var/lib/nginx
-
-# forward request and error logs to docker log collector
-RUN ln -sf /dev/stdout /var/log/nginx/access.log
-RUN ln -sf /dev/stderr /var/log/nginx/error.log
-
 # clean up
 RUN rm -rf ${PATH_NAME} /var/lib/apt/lists/*
 
 # add a startup script
 COPY forward /usr/local/bin
-
 
 ADD https://github.com/itzg/restify/releases/download/1.0.3/restify_linux_amd64 /usr/local/bin/restify
 COPY start.sh /start

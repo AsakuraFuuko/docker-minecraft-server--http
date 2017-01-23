@@ -1,5 +1,4 @@
 #!/bin/sh
 /usr/sbin/sshd
-nginx
 /start
 chisel server --proxy http://localhost
