@@ -6,14 +6,19 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 		bzip2 \
 		unzip \
 		xz-utils \
+    imagemagick \
+    lsof \
+    nano \
+    sudo \
+    vim \
+    jq \
+    curl \
     software-properties-common \
 	&& rm -rf /var/lib/apt/lists/*
 
 # Default to UTF-8 file.encoding
-ENV LANG zh_CN.UTF-8
+ENV LANG C.UTF-8
 
-# add a simple script that can auto-detect the appropriate JAVA_HOME value
-# based on whether the JDK or only the JRE is installed
 RUN { \
 		echo '#!/bin/sh'; \
 		echo 'set -e'; \
@@ -31,17 +36,6 @@ RUN set -x \
 		openjdk-8-jre \
 	&& rm -rf /var/lib/apt/lists/* \
 	&& [ "$JAVA_HOME" = "$(docker-java-home)" ]
-
-RUN apt-get update
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
-  imagemagick \
-  lsof \
-  nano \
-  sudo \
-  vim \
-  jq \
-  && apt-get clean
 
 RUN useradd -s /bin/false --uid 1000 minecraft \
   && mkdir /data \
@@ -89,5 +83,3 @@ ENV UID=1000 GID=1000 \
 
 CMD ["/bin/sh", "-c", "/usr/local/bin/forward"]
 EXPOSE 8080
-
-RUN apt-get update && apt-get install -y curl
